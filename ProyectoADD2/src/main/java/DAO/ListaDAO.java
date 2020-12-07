@@ -36,7 +36,9 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 	private final static String findCancByIDList = "SELECT c.* FROM Cancion as c INNER JOIN listacancion as l on FK_CANCION=c.ID WHERE FK_LISTA= ?";
 	private final static String getListFromUser = "Lista.getListFromUser";
 	private final static String insertCanInList = "INSERT INTO listacancion (FK_LISTA,FK_CANCION) VALUES(?,?)";
+	private final static String insertSubInList = "INSERT INTO listasubscripcion (FK_LISTA,FK_USUARIO) VALUES(?,?)";
 	private final static String removeSongfromList = "DELETE FROM listacancion WHERE FK_CANCION=?";
+	private final static String removeSubfromList = "DELETE FROM listasubscripcion WHERE FK_USUARIO=?";
 
 	enum queries {
 		INSERT("INSERT INTO Lista (ID,Nombre,Descripcion,IDUsuario) VALUES(NULL,?,?,?)"),
@@ -264,6 +266,53 @@ public class ListaDAO extends Lista implements DAO<Lista> {
         manager.getTransaction().commit();
         ConnectionUtils.closeManager(manager);
         return listas;
+    }
+    
+//_______________________________________INSERTAR/ELIMINAR un sub de una lista
+    
+    
+    /**
+     * Un usuario se subscribe a una lista de reproducción
+     * @param recibe una lista de reproducción a
+     * @param recibe un usuario u
+     * @return devuelve true si se ha podido subscribir
+     */
+    public boolean insertListSub(int a, int u) {
+
+        boolean result = false;
+        UsuarioDAO uDAO = new UsuarioDAO(u);
+
+        EntityManager manager = ConnectionUtils.getManager();
+        manager.getTransaction().begin();
+        Usuario us = new Usuario(uDAO);
+
+        if (this.getByID(a) != null && us != null) {
+            Query q = manager.createNativeQuery(insertSubInList, Usuario.class);
+            q.setParameter(1, a);
+            q.setParameter(2, u);
+            manager.getTransaction().commit();
+            ConnectionUtils.closeManager(manager);
+            result = true;
+        } else {
+            result = false;
+        }
+
+        return result;
+    }
+    
+    /**
+     * Un usuario se desubscribe de una lista de reproducción
+     * @param recibe un usuario u
+     */
+    public void removeSubofList(Usuario u) {
+    	EntityManager manager = ConnectionUtils.getManager();
+		manager.getTransaction().begin();
+		
+		Query q = manager.createNativeQuery(removeSubfromList, Usuario.class);
+		q.setParameter(1, u.getID());
+		q.executeUpdate();
+		manager.getTransaction().commit();
+		ConnectionUtils.closeManager(manager);
     }
 
 }
