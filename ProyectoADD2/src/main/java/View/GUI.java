@@ -948,38 +948,58 @@ public class GUI {
 
 			break;
 		case 7:
-			/*
-			 * Utilities.P("Introduzca el ID de la Lista: "); int idList = 0; boolean valid6
-			 * = false; do { try { idList = Integer.parseInt(keyboard.nextLine()); valid6 =
-			 * true;
-			 * 
-			 * } catch (IllegalStateException ex) { keyboard = new Scanner(System.in);
-			 * Utilities.P("Error in keyboard. Please, try it again: "); } catch
-			 * (NumberFormatException ex) {
-			 * Utilities.P("Error reading integer type. Please, try it again: "); } catch
-			 * (Exception ex) { ex.printStackTrace();
-			 * Utilities.P("Error unknown. Please, try it again: "); } } while (!valid6); if
-			 * (controlador.searchListByID(idList)) { Lista listR =
-			 * controlador.getListById(idList);
-			 * Utilities.P("Introduzca el ID del usuario: ");
-			 * 
-			 * int idUser = 0; boolean valid7 = false; do { try { idUser =
-			 * Integer.parseInt(keyboard.nextLine()); valid7 = true;
-			 * 
-			 * } catch (IllegalStateException ex) { keyboard = new Scanner(System.in);
-			 * Utilities.P("Error in keyboard. Please, try it again: "); } catch
-			 * (NumberFormatException ex) {
-			 * Utilities.P("Error reading integer type. Please, try it again: "); } catch
-			 * (Exception ex) { ex.printStackTrace();
-			 * Utilities.P("Error unknown. Please, try it again: "); } } while (!valid7); if
-			 * (controlador.searchUserByID(idUser)) { Usuario u =
-			 * controlador.getUserById(idUser); Subscripcion sub = new Subscripcion(listR,
-			 * u); if (controlador.insertSubs(sub)) {
-			 * Utilities.P("SE HA CREADO LA SUBSCRIPCION CON EXITO"); } else {
-			 * Utilities.P("HA OCURRIDO UN PROBLEMA AL CREAR LA SUBSCRIPCION"); } } else {
-			 * Utilities.P("EL ID DEl USUARIO NO EXISTE "); } } else {
-			 * Utilities.P("EL ID DE LA LISTA NO EXISTE "); }
-			 */
+			Utilities.P("Introduzca el ID de la Lista: ");
+			int idList = 0;
+			boolean valid6 = false;
+			do {
+				try {
+					idList = Integer.parseInt(keyboard.nextLine());
+					valid6 = true;
+
+				} catch (IllegalStateException ex) {
+					keyboard = new Scanner(System.in);
+					Utilities.P("Error in keyboard. Please, try it again: ");
+				} catch (NumberFormatException ex) {
+					Utilities.P("Error reading integer type. Please, try it again: ");
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					Utilities.P("Error unknown. Please, try it again: ");
+				}
+			} while (!valid6);
+			if (controlador.searchListByID(idList)) {
+				Lista listR = controlador.getListById(idList);
+				Utilities.P("Introduzca el ID del usuario: ");
+
+				int idUser = 0;
+				boolean valid7 = false;
+				do {
+					try {
+						idUser = Integer.parseInt(keyboard.nextLine());
+						valid7 = true;
+
+					} catch (IllegalStateException ex) {
+						keyboard = new Scanner(System.in);
+						Utilities.P("Error in keyboard. Please, try it again: ");
+					} catch (NumberFormatException ex) {
+						Utilities.P("Error reading integer type. Please, try it again: ");
+					} catch (Exception ex) {
+						ex.printStackTrace();
+						Utilities.P("Error unknown. Please, try it again: ");
+					}
+				} while (!valid7);
+				if (controlador.searchUserByID(idUser)) {
+					Usuario us = controlador.getUserById(idUser);
+					if (controlador.insertSubscripcion(listR, us)) {
+						Utilities.P("SE HA CREADO LA SUBSCRIPCION CON EXITO");
+					} else {
+						Utilities.P("HA OCURRIDO UN PROBLEMA AL CREAR LA SUBSCRIPCION");
+					}
+				} else {
+					Utilities.P("EL ID DEl USUARIO NO EXISTE ");
+				}
+			} else {
+				Utilities.P("EL ID DE LA LISTA NO EXISTE ");
+			}
 			break;
 
 		case 8:
@@ -1717,42 +1737,43 @@ public class GUI {
 
 			break;
 		case 6:
-			/*
-			 * Utilities.P("Introduzca el ID de la lista: "); int idli = 0; boolean valid6 =
-			 * false; do { try { idli = Integer.parseInt(keyboard.nextLine()); valid6 =
-			 * true;
-			 * 
-			 * } catch (IllegalStateException ex) { keyboard = new Scanner(System.in);
-			 * Utilities.P("Error in keyboard. Please, try it again: "); } catch
-			 * (NumberFormatException ex) {
-			 * Utilities.P("Error reading integer type. Please, try it again: "); } catch
-			 * (Exception ex) { ex.printStackTrace();
-			 * Utilities.P("Error unknown. Please, try it again: "); } } while (!valid6); if
-			 * (controlador.searchListByID(idli)) {
-			 * Utilities.P("Introduzca el ID del subscriptor: "); int idusub = 0; boolean
-			 * valid7 = false; do { try { idusub = Integer.parseInt(keyboard.nextLine());
-			 * valid7 = true;
-			 * 
-			 * } catch (IllegalStateException ex) { keyboard = new Scanner(System.in);
-			 * Utilities.P("Error in keyboard. Please, try it again: "); } catch
-			 * (NumberFormatException ex) {
-			 * Utilities.P("Error reading integer type. Please, try it again: "); } catch
-			 * (Exception ex) { ex.printStackTrace();
-			 * Utilities.P("Error unknown. Please, try it again: "); } } while (!valid7); if
-			 * (controlador.searchUserByID(idusub)) { int opcion = 0;
-			 * Utilities.P("Â¿Estas seguro de que quieres eliminar? ");
-			 * Utilities.P("1- Si eliminar "); Utilities.P("2- No eliminar ");
-			 * 
-			 * opcion = keyboard.nextInt(); if (opcion == 1) { Lista l =
-			 * controlador.getListById(idli); Usuario s = controlador.getUserById(idusub);
-			 * Subscripcion u = new Subscripcion(l, s); controlador.removeSubs(u);
-			 * Utilities.P("LA SUBSCRIPCION HA SIDO BORRADA CON EXITO"); } else if (opcion
-			 * == 2) { System.out.println("SALIENDO"); } else {
-			 * System.out.println("Introduzca una opcion valida"); } } else {
-			 * System.out.println("EL ID DEL USUARIO NO EXISTE"); }
-			 * 
-			 * } else { System.out.println("EL ID DE LA LISTA NO EXISTE"); }
-			 */
+			 Utilities.P("Introduzca el ID del subscriptor: ");
+             int idusub = 0;
+             boolean valid7 = false;
+             do {
+                 try {
+                     idusub = Integer.parseInt(keyboard.nextLine());
+                     valid7 = true;
+
+                 } catch (IllegalStateException ex) {
+                     keyboard = new Scanner(System.in);
+                     Utilities.P("Error in keyboard. Please, try it again: ");
+                 } catch (NumberFormatException ex) {
+                     Utilities.P("Error reading integer type. Please, try it again: ");
+                 } catch (Exception ex) {
+                     ex.printStackTrace();
+                     Utilities.P("Error unknown. Please, try it again: ");
+                 }
+             } while (!valid7);
+             if (controlador.searchUserByID(idusub)) {
+                 int opcion = 0;
+                 Utilities.P("¿Estas seguro de que quieres eliminar? ");
+                 Utilities.P("1- Si eliminar ");
+                 Utilities.P("2- No eliminar ");
+
+                 opcion = keyboard.nextInt();
+                 if (opcion == 1) {
+                     Usuario u = controlador.getUserById(idusub);
+                     controlador.removeSubofList(u);
+                     Utilities.P("LA SUBSCRIPCION HA SIDO BORRADA CON EXITO");
+                 } else if (opcion == 2) {
+                     System.out.println("SALIENDO");
+                 } else {
+                     System.out.println("Introduzca una opcion valida");
+                 }
+             } else {
+                 System.out.println("EL ID DEL USUARIO NO EXISTE");
+             }
 			break;
 
 		case 7:
@@ -1773,7 +1794,7 @@ public class GUI {
 					ex.printStackTrace();
 					Utilities.P("Error unknown. Please, try it again: ");
 				}
-			} while (!valid8); 
+			} while (!valid8);
 			if (iduserb != 0) {
 				if (controlador.searchUserByID(iduserb)) {
 					int opcion = 0;

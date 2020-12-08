@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.List;
+
+import DAO.ListaDAO;
 import model.Artista;
 import model.Cancion;
 import model.Connection;
@@ -176,6 +178,12 @@ public class AppController {
     
     public List<Lista> getAllListUser(int id) {
         return listControl.getListFromUser(id);
+    }
+    public boolean insertSubscripcion(Lista a, Usuario u) {
+		return listControl.insertSubscripcion(a, u);
+	}
+    public boolean removeSubofList(Usuario u) {
+        return listControl.removeSubofList(u);
     }
     //___________________________________________________________________________Funciones de User
     

@@ -290,6 +290,7 @@ public class ListaDAO extends Lista implements DAO<Lista> {
             Query q = manager.createNativeQuery(insertSubInList, Usuario.class);
             q.setParameter(1, a);
             q.setParameter(2, u);
+    		q.executeUpdate();
             manager.getTransaction().commit();
             ConnectionUtils.closeManager(manager);
             result = true;
