@@ -37,7 +37,7 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 	private final static String getListFromUser = "Lista.getListFromUser";
 	private final static String insertCanInList = "INSERT INTO listacancion (FK_LISTA,FK_CANCION) VALUES(?,?)";
 	private final static String insertSubInList = "INSERT INTO listasubscripcion (FK_LISTA,FK_USUARIO) VALUES(?,?)";
-	private final static String removeSongfromList = "DELETE FROM listacancion WHERE FK_CANCION=?";
+	private final static String removeSongfromList = "DELETE FROM listacancion (FK_LISTA,FK_CANCION) VALUES(?,?)";
 	private final static String removeSubfromList = "DELETE FROM listasubscripcion WHERE FK_USUARIO=?";
 
 	enum queries {
@@ -240,15 +240,29 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 	 * Recibe una canción y la borra de una lista de reproducción
 	 * @param Canción a
 	 */
-    public void removeSongList(Cancion a) {
-    	EntityManager manager = ConnectionUtils.getManager();
-		manager.getTransaction().begin();
-		Query q = manager.createNativeQuery(removeSongfromList, Cancion.class);
-		q.setParameter(1, a.getID());
-		q.executeUpdate();
-		manager.getTransaction().commit();
-		ConnectionUtils.closeManager(manager);
-    }
+    public boolean removeSongList(int a, int c) {
+    	boolean result = false;
+		CancionDAO cDAO = new CancionDAO(c);
+		Cancion ca = new Cancion(cDAO);
+		if (this.getByID(a) != null && ca != null) {
+			EntityManager manager = ConnectionUtils.getManager();
+			manager.getTransaction().begin();
+			
+			Query q = manager.createNativeQuery(removeSongfromList, Cancion.class);
+			q.setParameter(1, a);
+			q.setParameter(2, c);
+			q.executeUpdate();
+			manager.getTransaction().commit();
+			ConnectionUtils.closeManager(manager);
+			result = true;
+		} else {
+			result = false;
+		}
+
+		return result;
+	}
+
+    
 
     /**
      * Recibe el ID del usuario y devuelve Las listas que ha creado
@@ -290,7 +304,6 @@ public class ListaDAO extends Lista implements DAO<Lista> {
             Query q = manager.createNativeQuery(insertSubInList, Usuario.class);
             q.setParameter(1, a);
             q.setParameter(2, u);
-    		q.executeUpdate();
             manager.getTransaction().commit();
             ConnectionUtils.closeManager(manager);
             result = true;
@@ -299,7 +312,7 @@ public class ListaDAO extends Lista implements DAO<Lista> {
         }
 
         return result;
-    }  
+    }
     
     /**
      * Un usuario se desubscribe de una lista de reproducci�n
