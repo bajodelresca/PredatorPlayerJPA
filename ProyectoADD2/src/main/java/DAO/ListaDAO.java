@@ -180,7 +180,7 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 		if (this.getByID(a) != null && ca != null) {
 			EntityManager manager = ConnectionUtils.getManager();
 			manager.getTransaction().begin();
-			
+
 			Query q = manager.createNativeQuery(insertCanInList, Cancion.class);
 			q.setParameter(1, a);
 			q.setParameter(2, c);
@@ -194,31 +194,34 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 
 		return result;
 	}
+
 	/**
 	 * Elimina una cancion de todas las listas en las que se encuentre
+	 * 
 	 * @param c Cancion
 	 * @return devuelve true si la borra y false si no
 	 */
 	public boolean removeAllSongList(Cancion c) {
-        boolean result = false;
-        CancionDAO cDAO = new CancionDAO(c);
-        Cancion ca = new Cancion(cDAO);
-        if (ca != null) {
-            EntityManager manager = ConnectionUtils.getManager();
-            manager.getTransaction().begin();
-            
-            Query q = manager.createNativeQuery(removeAllSongfromList, Cancion.class);
-            q.setParameter(1, c.getID());
-            q.executeUpdate();
-            manager.getTransaction().commit();
-            ConnectionUtils.closeManager(manager);
-            result = true;
-        } else {
-            result = false;
-        }
+		boolean result = false;
+		CancionDAO cDAO = new CancionDAO(c);
+		Cancion ca = new Cancion(cDAO);
+		if (ca != null) {
+			EntityManager manager = ConnectionUtils.getManager();
+			manager.getTransaction().begin();
 
-        return result;
-    }
+			Query q = manager.createNativeQuery(removeAllSongfromList, Cancion.class);
+			q.setParameter(1, c.getID());
+			q.executeUpdate();
+			manager.getTransaction().commit();
+			ConnectionUtils.closeManager(manager);
+			result = true;
+		} else {
+			result = false;
+		}
+
+		return result;
+	}
+
 	/*
 	 * Metodo que comprueba si existe el ID en la tabla
 	 *
@@ -240,130 +243,112 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 		ConnectionUtils.closeManager(manager);
 		return result;
 	}
-	
-	/*
-    public boolean searchListaCanByID(int a, int c) {
-        boolean result = false;
-        EntityManager manager = ConnectionUtils.getManager();
-        manager.getTransaction().begin();
-        
-        Cancion ca = manager.find(Cancion.class, a);
-        Lista li = manager.find(Lista.class, c);
-        if (ca != null && li != null) {
-            result = true;
-        } else {
-            result = false;
-        }
-        manager.getTransaction().commit();
-        ConnectionUtils.closeManager(manager);
-        return result;
 
-    }
-    */
-	
 	/**
-	 * Recibe una canciÃ³n y la borra de una lista de reproducciÃ³n
-	 * @param CanciÃ³n a
+	 * Recibe una canción y la borra de una lista de reproducción
+	 * 
+	 * @param Canción a
 	 */
 	public boolean removeSongList(int a, int c) {
-        boolean result = false;
-        CancionDAO cDAO = new CancionDAO(c);
-        Cancion ca = new Cancion(cDAO);
-        if (this.getByID(a) != null && ca != null) {
-            EntityManager manager = ConnectionUtils.getManager();
-            manager.getTransaction().begin();
-            
-            Query q = manager.createNativeQuery(removeSongfromList, Cancion.class);
-            q.setParameter(1, a);
-            q.setParameter(2, c);
-            q.executeUpdate();
-            manager.getTransaction().commit();
-            ConnectionUtils.closeManager(manager);
-            result = true;
-        } else {
-            result = false;
-        }
+		boolean result = false;
+		CancionDAO cDAO = new CancionDAO(c);
+		Cancion ca = new Cancion(cDAO);
+		if (this.getByID(a) != null && ca != null) {
+			EntityManager manager = ConnectionUtils.getManager();
+			manager.getTransaction().begin();
 
-        return result;
-    }
+			Query q = manager.createNativeQuery(removeSongfromList, Cancion.class);
+			q.setParameter(1, a);
+			q.setParameter(2, c);
+			q.executeUpdate();
+			manager.getTransaction().commit();
+			ConnectionUtils.closeManager(manager);
+			result = true;
+		} else {
+			result = false;
+		}
 
-    /**
-     * Recibe el ID del usuario y devuelve Las listas que ha creado
-     *
-     * @param id
-     * @return listUser
-     */
-    public List<Lista> getListFromUser(int id) {
-    	EntityManager manager = ConnectionUtils.getManager();
-        manager.getTransaction().begin();
-        TypedQuery q = manager.createNamedQuery(getListFromUser, Lista.class);
-        q.setParameter("ID", id);
+		return result;
+	}
 
-        List<Lista> listas = q.getResultList();
-        manager.getTransaction().commit();
-        ConnectionUtils.closeManager(manager);
-        return listas;
-    }
-    
+	/**
+	 * Recibe el ID del usuario y devuelve Las listas que ha creado
+	 *
+	 * @param id
+	 * @return listUser
+	 */
+	public List<Lista> getListFromUser(int id) {
+		EntityManager manager = ConnectionUtils.getManager();
+		manager.getTransaction().begin();
+		TypedQuery q = manager.createNamedQuery(getListFromUser, Lista.class);
+		q.setParameter("ID", id);
+
+		List<Lista> listas = q.getResultList();
+		manager.getTransaction().commit();
+		ConnectionUtils.closeManager(manager);
+		return listas;
+	}
+
 //_______________________________________INSERTAR/ELIMINAR un sub de una lista
-    
-    
-    /**
-     * Un usuario se subscribe a una lista de reproducción
-     * @param recibe una lista de reproducción a
-     * @param recibe un usuario u
-     * @return devuelve true si se ha podido subscribir
-     */
-    public boolean insertListSub(int a, int u) {
 
-        boolean result = false;
-        UsuarioDAO uDAO = new UsuarioDAO(u);
+	/**
+	 * Un usuario se subscribe a una lista de reproducción
+	 * 
+	 * @param recibe una lista de reproducción a
+	 * @param recibe un usuario u
+	 * @return devuelve true si se ha podido subscribir
+	 */
+	public boolean insertListSub(int a, int u) {
 
-        EntityManager manager = ConnectionUtils.getManager();
-        manager.getTransaction().begin();
-        Usuario us = new Usuario(uDAO);
+		boolean result = false;
+		UsuarioDAO uDAO = new UsuarioDAO(u);
 
-        if (this.getByID(a) != null && us != null) {
-            Query q = manager.createNativeQuery(insertSubInList, Usuario.class);
-            q.setParameter(1, a);
-            q.setParameter(2, u);
-    		q.executeUpdate();
-            manager.getTransaction().commit();
-            ConnectionUtils.closeManager(manager);
-            result = true;
-        } else {
-            result = false;
-        }
+		EntityManager manager = ConnectionUtils.getManager();
+		manager.getTransaction().begin();
+		Usuario us = new Usuario(uDAO);
 
-        return result;
-    }  
-    
-    /**
-     * Un usuario se desubscribe de una lista de reproducción
-     * @param recibe un usuario u
-     */
-    public boolean removeSubofList(int a, int u) {
+		if (this.getByID(a) != null && us != null) {
+			Query q = manager.createNativeQuery(insertSubInList, Usuario.class);
+			q.setParameter(1, a);
+			q.setParameter(2, u);
+			q.executeUpdate();
+			manager.getTransaction().commit();
+			ConnectionUtils.closeManager(manager);
+			result = true;
+		} else {
+			result = false;
+		}
 
-        boolean result = false;
-        UsuarioDAO uDAO = new UsuarioDAO(u);
+		return result;
+	}
 
-        EntityManager manager = ConnectionUtils.getManager();
-        manager.getTransaction().begin();
-        Usuario us = new Usuario(uDAO);
+	/**
+	 * Un usuario se desubscribe de una lista de reproducción
+	 * 
+	 * @param recibe un usuario u
+	 */
+	public boolean removeSubofList(int a, int u) {
 
-        if (this.getByID(a) != null && us != null) {
-            Query q = manager.createNativeQuery(removeSubfromList, Usuario.class);
-            q.setParameter(1, a);
-            q.setParameter(2, u);
-    		q.executeUpdate();
-            manager.getTransaction().commit();
-            ConnectionUtils.closeManager(manager);
-            result = true;
-        } else {
-            result = false;
-        }
+		boolean result = false;
+		UsuarioDAO uDAO = new UsuarioDAO(u);
 
-        return result;
-    }
+		EntityManager manager = ConnectionUtils.getManager();
+		manager.getTransaction().begin();
+		Usuario us = new Usuario(uDAO);
+
+		if (this.getByID(a) != null && us != null) {
+			Query q = manager.createNativeQuery(removeSubfromList, Usuario.class);
+			q.setParameter(1, a);
+			q.setParameter(2, u);
+			q.executeUpdate();
+			manager.getTransaction().commit();
+			ConnectionUtils.closeManager(manager);
+			result = true;
+		} else {
+			result = false;
+		}
+
+		return result;
+	}
 
 }
