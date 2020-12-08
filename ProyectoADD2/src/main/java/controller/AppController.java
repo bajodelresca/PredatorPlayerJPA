@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import DAO.CancionDAO;
 import DAO.ListaDAO;
 import model.Artista;
 import model.Cancion;
@@ -161,10 +162,9 @@ public class AppController {
     public boolean removeList(Lista a) {
         return listControl.removeList(a);
     }
-    public boolean removesongofList(Cancion a) {
-        return listControl.removecanclist(a);
+    public boolean removesongofList(int a,int c) {
+        return listControl.removecanclist(a,c);
     }
-
     public List<Cancion> getAllSongsList(int id) {
         return listControl.getAllSongsList(id);
     }
@@ -182,9 +182,12 @@ public class AppController {
     public boolean insertSubscripcion(Lista a, Usuario u) {
 		return listControl.insertSubscripcion(a, u);
 	}
-    public boolean removeSubofList(Usuario u) {
-        return listControl.removeSubofList(u);
+    public boolean removeSubofList(int a, int u) {
+        return listControl.removeSubofList(a,u);
     }
+    public boolean removeAllSongList(Cancion c) {
+		return listControl.removeAllSongList(c);
+	}
     //___________________________________________________________________________Funciones de User
     
     public List<Usuario> getAllUsers() {

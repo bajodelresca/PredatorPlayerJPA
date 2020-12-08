@@ -6,6 +6,7 @@
 package controller;
 
 import DAO.ArtistaDAO;
+import DAO.CancionDAO;
 import DAO.ListaDAO;
 import DAO.UsuarioDAO;
 
@@ -105,11 +106,15 @@ public class ListaController {
 		return lDAO.searchByID(id);
 	}
 
-	public boolean removecanclist(Cancion a) {
+	public boolean removecanclist(int a, int c) {
 		boolean result = false;
-		if (a != null) {
-			ListaDAO lDAO = new ListaDAO();
-			lDAO.removeSongList(a);
+		ListaDAO lDAO = new ListaDAO(a);
+		Lista li = new Lista(lDAO);
+		CancionDAO cDAO = new CancionDAO(c);
+		Cancion ca = new Cancion(cDAO);
+		if (li != null && ca != null) {
+
+			lDAO.removeSongList(a, c);
 			result = true;
 		} else {
 			result = false;
@@ -133,16 +138,37 @@ public class ListaController {
 		}
 		return result;
 	}
-	public boolean removeSubofList(Usuario u) {
+
+	public boolean removeAllSongList(Cancion c) {
 		boolean result = false;
-		if (u != null) {
-			ListaDAO lDAO = new ListaDAO();
-			lDAO.removeSubofList(u);
+		ListaDAO lDAO = new ListaDAO();
+		CancionDAO cDAO = new CancionDAO(c);
+		Cancion ca = new Cancion(cDAO);
+		if (ca != null) {
+			lDAO.removeAllSongList(c);
 			result = true;
 		} else {
 			result = false;
 		}
 		return result;
+	}
+
+	public boolean removeSubofList(int a, int u) {
+		boolean result = false;
+		ListaDAO lDAO = new ListaDAO(a);
+		Lista li = new Lista(lDAO);
+		UsuarioDAO uDAO = new UsuarioDAO(u);
+		Usuario us = new Usuario(uDAO);
+		if (li != null && us != null) {
+
+			lDAO.removeSubofList(a, u);
+			;
+			result = true;
+		} else {
+			result = false;
+		}
+		return result;
+
 	}
 
 }

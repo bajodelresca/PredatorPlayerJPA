@@ -1541,7 +1541,7 @@ public class GUI {
 						for (Disco disco : disclist) {
 							List<Cancion> canclist = controlador.getCanciones(disco.getID());
 							for (Cancion cancion : canclist) {
-								controlador.removesongofList(cancion);
+								controlador.removeAllSongList(cancion);
 								controlador.removeSongs(cancion);
 							}
 							controlador.removeDiscs(disco);
@@ -1592,7 +1592,7 @@ public class GUI {
 					Disco a = controlador.getDiscsById(idiscb);
 					List<Cancion> Cancionlist = controlador.getCanciones(a.getID());
 					for (Cancion cancion : Cancionlist) {
-						controlador.removesongofList(cancion);
+						controlador.removeAllSongList(cancion);
 						controlador.removeSongs(cancion);
 					}
 					controlador.removeDiscs(a);
@@ -1638,7 +1638,7 @@ public class GUI {
 				opcion = keyboard.nextInt();
 				if (opcion == 1) {
 					Cancion c = controlador.getSongsById(idCancionb);
-					controlador.removesongofList(c);
+					controlador.removeAllSongList(c);
 					controlador.removeSongs(c);
 					Utilities.P("LA CANCION HA SIDO BORRADA CON EXITO");
 				} else if (opcion == 2) {
@@ -1696,13 +1696,13 @@ public class GUI {
 			break;
 
 		case 5:
-			Utilities.P("Introduzca el ID de la cancion: ");
-			int idcab = 0;
-			boolean valid5 = false;
+			Utilities.P("Introduzca el ID de la lista: ");
+			int idli = 0;
+			boolean valid6 = false;
 			do {
 				try {
-					idcab = Integer.parseInt(keyboard.nextLine());
-					valid5 = true;
+					idli = Integer.parseInt(keyboard.nextLine());
+					valid6 = true;
 
 				} catch (IllegalStateException ex) {
 					keyboard = new Scanner(System.in);
@@ -1713,67 +1713,114 @@ public class GUI {
 					ex.printStackTrace();
 					Utilities.P("Error unknown. Please, try it again: ");
 				}
-			} while (!valid5);
-			if (controlador.searchSongByID(idcab)) {
-				int opcion = 0;
-				Utilities.P("Â¿Estas seguro de que quieres eliminar? ");
-				Utilities.P("1- Si eliminar ");
-				Utilities.P("2- No eliminar ");
+			} while (!valid6);
+			if (controlador.searchListByID(idli)) {
+				Utilities.P("Introduzca el ID de la cancion: ");
+				int idcab = 0;
+				boolean valid5 = false;
+				do {
+					try {
+						idcab = Integer.parseInt(keyboard.nextLine());
+						valid5 = true;
 
-				opcion = keyboard.nextInt();
-				if (opcion == 1) {
-					Cancion u = controlador.getSongsById(idcab);
-					controlador.removesongofList(u);
-					Utilities.P("LA CANCION HA SIDO BORRADA CON EXITO");
-				} else if (opcion == 2) {
-					System.out.println("SALIENDO");
+					} catch (IllegalStateException ex) {
+						keyboard = new Scanner(System.in);
+						Utilities.P("Error in keyboard. Please, try it again: ");
+					} catch (NumberFormatException ex) {
+						Utilities.P("Error reading integer type. Please, try it again: ");
+					} catch (Exception ex) {
+						ex.printStackTrace();
+						Utilities.P("Error unknown. Please, try it again: ");
+					}
+				} while (!valid5);
+				if (controlador.searchSongByID(idcab)) {
+					int opcion = 0;
+					Utilities.P("Â¿Estas seguro de que quieres eliminar? ");
+					Utilities.P("1- Si eliminar ");
+					Utilities.P("2- No eliminar ");
+
+					opcion = keyboard.nextInt();
+					if (opcion == 1) {
+						Cancion c = controlador.getSongsById(idcab);
+						Lista l=controlador.getListById(idli);
+						controlador.removesongofList(l.getID(),c.getID());
+						Utilities.P("LA CANCION HA SIDO BORRADA CON EXITO");
+					} else if (opcion == 2) {
+						System.out.println("SALIENDO");
+					} else {
+						System.out.println("Introduzca una opcion valida");
+					}
+
 				} else {
-					System.out.println("Introduzca una opcion valida");
+					System.out.println("EL ID DE LA CANCION NO EXISTE");
+				}
+			} else {
+				System.out.println("EL ID DE LA LISTA NO EXISTE");
+			}
+			break;
+		case 6:
+			Utilities.P("Introduzca el ID de la lista: ");
+			int idli2 = 0;
+			boolean valid62 = false;
+			do {
+				try {
+					idli2 = Integer.parseInt(keyboard.nextLine());
+					valid62 = true;
+
+				} catch (IllegalStateException ex) {
+					keyboard = new Scanner(System.in);
+					Utilities.P("Error in keyboard. Please, try it again: ");
+				} catch (NumberFormatException ex) {
+					Utilities.P("Error reading integer type. Please, try it again: ");
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					Utilities.P("Error unknown. Please, try it again: ");
+				}
+			} while (!valid62);
+			if (controlador.searchListByID(idli2)) {
+				Utilities.P("Introduzca el ID del subscriptor: ");
+				int idusub = 0;
+				boolean valid7 = false;
+				do {
+					try {
+						idusub = Integer.parseInt(keyboard.nextLine());
+						valid7 = true;
+
+					} catch (IllegalStateException ex) {
+						keyboard = new Scanner(System.in);
+						Utilities.P("Error in keyboard. Please, try it again: ");
+					} catch (NumberFormatException ex) {
+						Utilities.P("Error reading integer type. Please, try it again: ");
+					} catch (Exception ex) {
+						ex.printStackTrace();
+						Utilities.P("Error unknown. Please, try it again: ");
+					}
+				} while (!valid7);
+				if (controlador.searchUserByID(idusub)) {
+					int opcion = 0;
+					Utilities.P("¿Estas seguro de que quieres eliminar? ");
+					Utilities.P("1- Si eliminar ");
+					Utilities.P("2- No eliminar ");
+
+					opcion = keyboard.nextInt();
+					if (opcion == 1) {
+						Lista l = controlador.getListById(idli2);
+						Usuario s = controlador.getUserById(idusub);
+
+						controlador.removeSubofList(l.getID(), s.getID());
+						Utilities.P("LA SUBSCRIPCION HA SIDO BORRADA CON EXITO");
+					} else if (opcion == 2) {
+						System.out.println("SALIENDO");
+					} else {
+						System.out.println("Introduzca una opcion valida");
+					}
+				} else {
+					System.out.println("EL ID DEL USUARIO NO EXISTE");
 				}
 
 			} else {
-				System.out.println("EL ID DE LA CANCION NO EXISTE");
+				System.out.println("EL ID DE LA LISTA NO EXISTE");
 			}
-
-			break;
-		case 6:
-			 Utilities.P("Introduzca el ID del subscriptor: ");
-             int idusub = 0;
-             boolean valid7 = false;
-             do {
-                 try {
-                     idusub = Integer.parseInt(keyboard.nextLine());
-                     valid7 = true;
-
-                 } catch (IllegalStateException ex) {
-                     keyboard = new Scanner(System.in);
-                     Utilities.P("Error in keyboard. Please, try it again: ");
-                 } catch (NumberFormatException ex) {
-                     Utilities.P("Error reading integer type. Please, try it again: ");
-                 } catch (Exception ex) {
-                     ex.printStackTrace();
-                     Utilities.P("Error unknown. Please, try it again: ");
-                 }
-             } while (!valid7);
-             if (controlador.searchUserByID(idusub)) {
-                 int opcion = 0;
-                 Utilities.P("¿Estas seguro de que quieres eliminar? ");
-                 Utilities.P("1- Si eliminar ");
-                 Utilities.P("2- No eliminar ");
-
-                 opcion = keyboard.nextInt();
-                 if (opcion == 1) {
-                     Usuario u = controlador.getUserById(idusub);
-                     controlador.removeSubofList(u);
-                     Utilities.P("LA SUBSCRIPCION HA SIDO BORRADA CON EXITO");
-                 } else if (opcion == 2) {
-                     System.out.println("SALIENDO");
-                 } else {
-                     System.out.println("Introduzca una opcion valida");
-                 }
-             } else {
-                 System.out.println("EL ID DEL USUARIO NO EXISTE");
-             }
 			break;
 
 		case 7:
