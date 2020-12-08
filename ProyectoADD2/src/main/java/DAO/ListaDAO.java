@@ -299,7 +299,7 @@ public class ListaDAO extends Lista implements DAO<Lista> {
         }
 
         return result;
-    }
+    } 
     
     /**
      * Un usuario se desubscribe de una lista de reproducción
