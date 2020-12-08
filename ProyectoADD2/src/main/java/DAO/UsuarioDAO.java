@@ -37,23 +37,7 @@ public class UsuarioDAO extends Usuario implements DAO<Usuario> {
     private final static String findAll = "Usuario.findAll";
     private final static String findByID = "Usuario.findByID";
 
-    enum queries {
-        INSERT("INSERT INTO Usuario (ID, Correo, Nombre, Foto) VALUES (NULL,?,?,?)"),
-        UPDATE("UPDATE Usuario SET Correo=?,Nombre=?,Foto=? WHERE ID=?"),
-        DELETE("DELETE FROM Usuario WHERE ID=?"),
-        GETBYID("SELECT * FROM Usuario Where ID=?"),
-        GETALL("SELECT * FROM Lista");
-
-        private String q;
-
-        queries(String q) {
-            this.q = q;
-        }
-
-        public String getQ() {
-            return this.q;
-        }
-    }
+  
 
     public UsuarioDAO() {
         super();
