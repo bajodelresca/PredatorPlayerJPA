@@ -168,6 +168,9 @@ public class AppController {
     public List<Cancion> getAllSongsList(int id) {
         return listControl.getAllSongsList(id);
     }
+    public List<Usuario> getAllUsersList(int id) {
+        return listControl.getAllUserList(id);
+    }
 
     public boolean insertListCanc(int a, int c) {
         return listControl.insertListCanc(a, c);

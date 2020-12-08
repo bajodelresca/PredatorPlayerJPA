@@ -170,5 +170,9 @@ public class ListaController {
 		return result;
 
 	}
+	public List<Usuario> getAllUserList(int id) {
+		ListaDAO lDAO = new ListaDAO();
+		return lDAO.getUserFromList(id);
+	}
 
 }

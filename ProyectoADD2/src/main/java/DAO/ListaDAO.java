@@ -34,13 +34,13 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 	private final static String findAll = "Lista.findAll";
 	private final static String findByID = "Lista.findByID";
 	private final static String findCancByIDList = "SELECT c.* FROM Cancion as c INNER JOIN listacancion as l on FK_CANCION=c.ID WHERE FK_LISTA= ?";
-	private final static String findListsByIDUser = "SELECT l.* FROM Lista as l INNER JOIN listasubscripcion as ls on FK_LISTA=l.ID WHERE FK_USUARIO= ?";
 	private final static String getListFromUser = "Lista.getListFromUser";
 	private final static String insertCanInList = "INSERT INTO listacancion (FK_LISTA,FK_CANCION) VALUES(?,?)";
 	private final static String insertSubInList = "INSERT INTO listasubscripcion (FK_LISTA,FK_USUARIO) VALUES(?,?)";
 	private final static String removeSongfromList = "DELETE FROM listacancion WHERE FK_LISTA=? and FK_CANCION=?";
 	private final static String removeAllSongfromList = "DELETE FROM listacancion WHERE FK_CANCION=?";
 	private final static String removeSubfromList = "DELETE FROM listasubscripcion WHERE FK_LISTA=? and FK_USUARIO=?";
+	private final static String findUserByIDList = "SELECT u.* FROM Usuario as u INNER JOIN listasubscripcion as s on FK_USUARIO=u.ID WHERE FK_LISTA= ?";
 
 	enum queries {
 		INSERT("INSERT INTO Lista (ID,Nombre,Descripcion,IDUsuario) VALUES(NULL,?,?,?)"),
@@ -351,18 +351,16 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 
 		return result;
 	}
-	
-	public List<Lista> getLitasFromUser(int id) {
+	public List<Usuario> getUserFromList(int id) {
 		EntityManager manager = ConnectionUtils.getManager();
 		manager.getTransaction().begin();
 
-		Query q = manager.createNativeQuery(findListsByIDUser, Lista.class);
+		Query q = manager.createNativeQuery(findUserByIDList, Usuario.class);
 		q.setParameter(1, id);
-		
-		List<Lista> listas = q.getResultList();
+		List<Usuario> usuarios = q.getResultList();
 		manager.getTransaction().commit();
 		ConnectionUtils.closeManager(manager);
-		return listas;
+		return usuarios;
 
 	}
 
