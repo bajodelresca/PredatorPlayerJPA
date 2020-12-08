@@ -117,30 +117,7 @@ public class AppController {
      return songControl.searchCancionByID(id);
      }
 
-    //___________________________________________________________________________Funciones de SUBSCRIPCION
- /*   public List<Subscripcion> getAllSubs() {
-        return subsControl.getAllSubs();
-    }
-
-    public boolean insertSubs(Subscripcion a) {
-        return subsControl.insertSubs(a);
-    }
-
-    public boolean editSongs(Subscripcion a) {
-        return subsControl.editSubs(a);
-    }
-
-    public boolean removeSubs(Subscripcion a) {
-        return subsControl.removeSubs(a);
-    }
-    public List<Usuario> getSubscriberFromList(int id) {
-        return subsControl.getSubscriberFromList(id);
-    }
-
-    public List<Lista> getListFromSubscriber(int id) {
-        return subsControl.getListFromSubscriber(id);
-    }*/
-
+  
     //___________________________________________________________________________Funciones de LISTA
 
     public List<Lista> getAllList() {
@@ -190,6 +167,10 @@ public class AppController {
     }
     public boolean removeAllSongList(Cancion c) {
 		return listControl.removeAllSongList(c);
+	}
+
+    public List<Lista> getAllListUserSub(int id) {
+		return listControl.getAllListSub(id);
 	}
     //___________________________________________________________________________Funciones de User
     

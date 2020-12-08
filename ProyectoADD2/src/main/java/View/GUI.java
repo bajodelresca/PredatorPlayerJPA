@@ -507,7 +507,7 @@ public class GUI {
 			} while (!valid);
 			if (controlador.searchListByID(id)) {
 				Lista l = controlador.getListById(id);
-				List<Usuario> listUsuario = l.getSubscriptores();
+				List<Usuario> listUsuario = controlador.getAllUsersList(l.getID());
 				for (Usuario u : listUsuario) {
 					System.out.println("----------------------------------");
 					System.out.println("ID: " + u.getID());
@@ -551,7 +551,7 @@ public class GUI {
 			} while (!valid);
 			if (controlador.searchUserByID(id)) {
 				Usuario u = controlador.getUserById(id);
-				List<Lista> listLista = u.getListasubscrito();
+				List<Lista> listLista = controlador.getAllListUserSub(u.getID());
 				for (Lista li : listLista) {
 					System.out.println("----------------------------------");
 					System.out.println("ID: " + li.getID());

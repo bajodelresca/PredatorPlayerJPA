@@ -174,5 +174,8 @@ public class ListaController {
 		ListaDAO lDAO = new ListaDAO();
 		return lDAO.getUserFromList(id);
 	}
-
+	public List<Lista> getAllListSub(int id) {
+		ListaDAO lDAO = new ListaDAO();
+		return lDAO.getLitasFromSub(id);
+	}
 }

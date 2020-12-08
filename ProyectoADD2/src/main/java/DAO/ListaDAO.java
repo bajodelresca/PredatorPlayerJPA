@@ -344,7 +344,7 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 		return usuarios;
 
 	}
-	public List<Lista> getLitasFromUser(int id) {
+	public List<Lista> getLitasFromSub(int id) {
         EntityManager manager = ConnectionUtils.getManager();
         manager.getTransaction().begin();
 
