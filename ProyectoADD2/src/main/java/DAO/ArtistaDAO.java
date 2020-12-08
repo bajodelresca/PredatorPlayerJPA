@@ -94,10 +94,6 @@ public class ArtistaDAO extends Artista implements DAO<Artista> {
 		TypedQuery<Artista> q = manager.createNamedQuery(findAll,Artista.class);
 		
 		List<Artista> artistas = q.getResultList();
-		/*for (Object object : artistas) {
-			object=(ArtistaDAO) object;
-			System.out.println(object);
-		}*/
 		manager.getTransaction().commit();
 		ConnectionUtils.closeManager(manager);
 		return artistas;
