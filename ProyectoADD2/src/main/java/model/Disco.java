@@ -56,7 +56,7 @@ public class Disco implements Serializable {
 
     @OneToMany(mappedBy = "Album", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     protected List<Cancion> canciones;
-
+ 
     public Disco(int ID, String Nombre, String foto, Date fecha, Artista creador, List<Cancion> canciones) {
         this.ID = ID;
         this.Nombre = Nombre;
