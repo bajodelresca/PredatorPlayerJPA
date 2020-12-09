@@ -34,6 +34,7 @@ public class ArtistaDAO extends Artista implements DAO<Artista> {
 	private final static String findByID = "Artista.findByID";
 	private final static String findDiscByIDArtist = "Artista.findDiscByIDArtist";
 	private final static String removeArt = "DELETE FROM artista WHERE ID=?";
+
 	public ArtistaDAO(int ID, String Nombre, String Nacionalidad, String Foto) {
 		super(ID, Nombre, Nacionalidad, Foto);
 	}
@@ -45,19 +46,19 @@ public class ArtistaDAO extends Artista implements DAO<Artista> {
 	public ArtistaDAO(Artista a) {
 		super(a.getID(), a.getNombre(), a.getNacionalidad(), a.getFoto());
 	}
-	
+
 	public ArtistaDAO(int id) {
 		super(getByID(id));
 	}
 
 //______________________________________________________________________________NUEVO
-	
+
 	public void setDiscos(List<Disco> discos) {
-        this.repertorio = discos;
-        for (Disco disco : discos) {
+		this.repertorio = discos;
+		for (Disco disco : discos) {
 			disco.setCreador(this);
 		}
-    }
+	}
 
 //______________________________________________________________________________CRUD
 	@Override
@@ -93,8 +94,8 @@ public class ArtistaDAO extends Artista implements DAO<Artista> {
 	public List<Artista> getAll() {
 		EntityManager manager = ConnectionUtils.getManager();
 		manager.getTransaction().begin();
-		TypedQuery<Artista> q = manager.createNamedQuery(findAll,Artista.class);
-		
+		TypedQuery<Artista> q = manager.createNamedQuery(findAll, Artista.class);
+
 		List<Artista> artistas = q.getResultList();
 		manager.getTransaction().commit();
 		ConnectionUtils.closeManager(manager);
@@ -105,7 +106,7 @@ public class ArtistaDAO extends Artista implements DAO<Artista> {
 		EntityManager manager = ConnectionUtils.getManager();
 		manager.getTransaction().begin();
 
-		TypedQuery q = manager.createNamedQuery(findByID,Artista.class);
+		TypedQuery q = manager.createNamedQuery(findByID, Artista.class);
 		q.setParameter("ID", id);
 		Artista a = (Artista) q.getSingleResult();
 		manager.getTransaction().commit();
@@ -119,15 +120,15 @@ public class ArtistaDAO extends Artista implements DAO<Artista> {
 	 * @param id
 	 * @return canciones
 	 */
-	
+
 	public List<Disco> getListRepertorio(int id) {
-		
+
 		EntityManager manager = ConnectionUtils.getManager();
 		manager.getTransaction().begin();
 
-		TypedQuery q = manager.createNamedQuery(findDiscByIDArtist,Disco.class);
+		TypedQuery q = manager.createNamedQuery(findDiscByIDArtist, Disco.class);
 		q.setParameter("ID", id);
-		List<Disco> repertorio =  q.getResultList();
+		List<Disco> repertorio = q.getResultList();
 		manager.getTransaction().commit();
 		ConnectionUtils.closeManager(manager);
 		return repertorio;
@@ -143,11 +144,13 @@ public class ArtistaDAO extends Artista implements DAO<Artista> {
 		boolean result = false;
 		EntityManager manager = ConnectionUtils.getManager();
 		manager.getTransaction().begin();
-		Artista c = getByID(id);
-		if (c != null) {
-			result = true;
-		} else {
-			result = false;
+		List<Artista> la = getAll();
+		for (Artista c : la) {
+			if (c.getID() == id) {
+				result = true;
+			} else {
+				result = false;
+			}
 		}
 		manager.getTransaction().commit();
 		ConnectionUtils.closeManager(manager);

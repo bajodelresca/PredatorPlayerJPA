@@ -135,12 +135,14 @@ public class UsuarioDAO extends Usuario implements DAO<Usuario> {
         EntityManager manager = ConnectionUtils.getManager();
         manager.getTransaction().begin();
 
-        Usuario u = getByID(id);
-        if (u != null) {
-            result = true;
-        } else {
-            result = false;
-        }
+        List<Usuario> lu = getAll();
+		for (Usuario c : lu) {
+			if (c.getID() == id) {
+				result = true;
+			} else {
+				result = false;
+			}
+		}
         manager.getTransaction().commit();
         ConnectionUtils.closeManager(manager);
         return result;

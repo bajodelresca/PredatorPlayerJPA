@@ -218,11 +218,13 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 		boolean result = false;
 		EntityManager manager = ConnectionUtils.getManager();
 		manager.getTransaction().begin();
-		Lista c = getByID(id);
-		if (c != null) {
-			result = true;
-		} else {
-			result = false;
+		List<Lista> ll = getAll();
+		for (Lista c : ll) {
+			if (c.getID() == id) {
+				result = true;
+			} else {
+				result = false;
+			}
 		}
 		manager.getTransaction().commit();
 		ConnectionUtils.closeManager(manager);
