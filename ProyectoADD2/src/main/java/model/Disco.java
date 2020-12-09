@@ -20,6 +20,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 /**
  *
  * @author Jorge SB
@@ -55,6 +58,7 @@ public class Disco implements Serializable {
     protected Artista creador;
 
     @OneToMany(mappedBy = "Album", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     protected List<Cancion> canciones;
  
     public Disco(int ID, String Nombre, String foto, Date fecha, Artista creador, List<Cancion> canciones) {

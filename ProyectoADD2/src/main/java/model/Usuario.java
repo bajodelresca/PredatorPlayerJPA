@@ -24,6 +24,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 /**
  *
  * @author espin
@@ -51,6 +54,7 @@ public class Usuario implements Serializable {
     @ManyToMany(mappedBy = "subscriptores")
     protected List<Lista> listasubscrito;
     @OneToMany(mappedBy = "creador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     protected List<Lista> listacreada;
 
     public Usuario(int ID, String Nombre, String Correo, String Foto, List<Lista> listasubscrito) {

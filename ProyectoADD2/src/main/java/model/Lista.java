@@ -26,6 +26,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 /**
  *
  * @author espin
@@ -60,6 +63,7 @@ public class Lista implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "FK_USUARIO", nullable = false)
     )
     @ManyToMany(cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     protected List<Usuario> subscriptores;
     @Column(name = "LISTAREPRODUCCION")
     @JoinTable(
@@ -68,6 +72,7 @@ public class Lista implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "FK_CANCION", nullable = false)
     )
     @ManyToMany(cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     protected List<Cancion> listareproduccion;
 
     public Lista(int ID, String Nombre, String Descripcion, Usuario creador, List<Usuario> subscriptores, List<Cancion> listareproduccion) {
