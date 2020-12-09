@@ -36,7 +36,7 @@ public class UsuarioDAO extends Usuario implements DAO<Usuario> {
 
     private final static String findAll = "Usuario.findAll";
     private final static String findByID = "Usuario.findByID";
-
+    private final static String removeUser = "DELETE FROM usuario WHERE ID=?";
   
 
     public UsuarioDAO() {
@@ -87,7 +87,9 @@ public class UsuarioDAO extends Usuario implements DAO<Usuario> {
     public void remove(Usuario a) {
     	EntityManager manager = ConnectionUtils.getManager();
 		manager.getTransaction().begin();
-		manager.remove(manager.contains(a) ? a:manager.merge(a));
+		Query q = manager.createNativeQuery(removeUser, Usuario.class);
+		q.setParameter(1, a.getID());
+		q.executeUpdate();
 		manager.getTransaction().commit();
 		ConnectionUtils.closeManager(manager);
     }

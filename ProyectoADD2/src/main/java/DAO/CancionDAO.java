@@ -30,11 +30,13 @@ import javax.persistence.TypedQuery;
 import model.Cancion;
 import model.Disco;
 //@MappedSuperclass
+import model.Lista;
 
 public class CancionDAO extends Cancion implements DAO<Cancion> {
 	
 	private final static String findAll = "Cancion.findAll";
 	private final static String findByID = "Cancion.findByID";
+	private final static String removeSong = "DELETE FROM cancion WHERE ID=?";
 	public CancionDAO(int ID, String Nombre, int Duracion, Disco Album) {
 		super(ID, Nombre, Duracion, Album);
 
@@ -92,7 +94,9 @@ public class CancionDAO extends Cancion implements DAO<Cancion> {
 	public void remove(Cancion a) {
 		EntityManager manager = ConnectionUtils.getManager();
 		manager.getTransaction().begin();
-		manager.remove(manager.contains(a) ? a:manager.merge(a));
+		Query q = manager.createNativeQuery(removeSong, Cancion.class);
+		q.setParameter(1, a.getID());
+		q.executeUpdate();
 		manager.getTransaction().commit();
 		ConnectionUtils.closeManager(manager);
 	}

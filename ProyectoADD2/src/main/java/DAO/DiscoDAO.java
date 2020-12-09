@@ -22,6 +22,7 @@ import javax.persistence.TypedQuery;
 import model.Artista;
 import model.Cancion;
 import model.Disco;
+import model.Lista;
 
 /**
  *
@@ -34,6 +35,7 @@ public class DiscoDAO extends Disco implements DAO<Disco> {
 	private final static String findAll = "Disco.findAll";
 	private final static String findByID = "Disco.findByID";
 	private final static String findSongByIDDisc = "Disco.findSongByIDDisc";
+	private final static String removeDisc = "DELETE FROM disco WHERE ID=?";
 	public DiscoDAO(int ID, String Nombre, String foto, Date fecha, Artista creador) {
 		super(ID, Nombre, foto, fecha, creador);
 	}
@@ -91,7 +93,9 @@ public class DiscoDAO extends Disco implements DAO<Disco> {
 	public void remove(Disco a) {
 		EntityManager manager = ConnectionUtils.getManager();
 		manager.getTransaction().begin();
-		manager.remove(manager.contains(a) ? a:manager.merge(a));
+		Query q = manager.createNativeQuery(removeDisc, Disco.class);
+		q.setParameter(1, a.getID());
+		q.executeUpdate();
 		manager.getTransaction().commit();
 		ConnectionUtils.closeManager(manager);
 	}

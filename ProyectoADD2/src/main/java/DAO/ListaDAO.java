@@ -40,6 +40,7 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 	private final static String insertSubInList = "INSERT INTO listasubscripcion (FK_LISTA,FK_USUARIO) VALUES(?,?)";
 	private final static String removeSongfromList = "DELETE FROM listacancion WHERE FK_LISTA=? and FK_CANCION=?";
 	private final static String removeAllSongfromList = "DELETE FROM listacancion WHERE FK_CANCION=?";
+	private final static String removeList = "DELETE FROM lista WHERE ID=?";
 	private final static String removeSubfromList = "DELETE FROM listasubscripcion WHERE FK_LISTA=? and FK_USUARIO=?";
 	private final static String findUserByIDList = "SELECT u.* FROM Usuario as u INNER JOIN listasubscripcion as s on FK_USUARIO=u.ID WHERE FK_LISTA= ?";
 
@@ -106,7 +107,9 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 	public void remove(Lista a) {
 		EntityManager manager = ConnectionUtils.getManager();
 		manager.getTransaction().begin();
-		manager.remove(manager.contains(a) ? a : manager.merge(a));
+		Query q = manager.createNativeQuery(removeList, Lista.class);
+		q.setParameter(1, a.getID());
+		q.executeUpdate();
 		manager.getTransaction().commit();
 		ConnectionUtils.closeManager(manager);
 	}

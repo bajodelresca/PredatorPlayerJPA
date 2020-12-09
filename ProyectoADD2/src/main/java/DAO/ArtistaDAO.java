@@ -33,7 +33,7 @@ public class ArtistaDAO extends Artista implements DAO<Artista> {
 	private final static String findAll = "Artista.findAll";
 	private final static String findByID = "Artista.findByID";
 	private final static String findDiscByIDArtist = "Artista.findDiscByIDArtist";
-
+	private final static String removeArt = "DELETE FROM artista WHERE ID=?";
 	public ArtistaDAO(int ID, String Nombre, String Nacionalidad, String Foto) {
 		super(ID, Nombre, Nacionalidad, Foto);
 	}
@@ -82,7 +82,9 @@ public class ArtistaDAO extends Artista implements DAO<Artista> {
 	public void remove(Artista a) {
 		EntityManager manager = ConnectionUtils.getManager();
 		manager.getTransaction().begin();
-		manager.remove(manager.contains(a) ? a:manager.merge(a));
+		Query q = manager.createNativeQuery(removeArt, Artista.class);
+		q.setParameter(1, a.getID());
+		q.executeUpdate();
 		manager.getTransaction().commit();
 		ConnectionUtils.closeManager(manager);
 	}
