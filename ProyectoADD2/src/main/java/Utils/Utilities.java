@@ -54,7 +54,7 @@ public class Utilities {
 	 * Lee un entero de teclado
 	 *
 	 * @param f Mensaje a imprimir al usuario antes de solicitar el entero
-	 * @return devuelve el entero leído
+	 * @return devuelve el entero leido
 	 */
 	public static int getInt(String f) {
 		Utilities.p(f + " : ");
@@ -74,7 +74,7 @@ public class Utilities {
 		try {
 			opcion = keyboard.nextInt();
 		} catch (Exception e) {
-			System.out.println("Introduzca un número entero");
+			System.out.println("Introduzca un numero entero");
 			keyboard = new Scanner(System.in);
 		}
 
@@ -113,24 +113,24 @@ public class Utilities {
 	// ____________________________________________________________________________MenuListar
 	public static int MenuListar() {
 		int opcion = 0;
-		P("-----Menú de Información-----");
+		P("-----Menu de Informacion-----");
 		P("1) Listar Cancion");
 		P("2) Listar Disco");
 		P("3) Listar Artista");
-		P("4) Listar lista de Reproducción");
+		P("4) Listar lista de Reproduccion");
 		P("5) Listar subscriptores por Id de la lista");
 		P("6) Listar listas a las que esta subscrito el usuario por Id");
-		P("7) Listar las canciones de una lista de Reproducción");
-		P("8) Listar las listas de Reproducción que ha creado un usuario");
+		P("7) Listar las canciones de una lista de Reproduccion");
+		P("8) Listar las listas de Reproduccion que ha creado un usuario");
 		P("9) Listar todos los usuarios");
-		P("10) Volver al menú anterior");
+		P("10) Volver al menu anterior");
 		P("-------------------------------------");
 		p("> ");
 
 		try {
 			opcion = keyboard.nextInt();
 		} catch (Exception e) {
-			System.out.println("Introduzca un número entero");
+			System.out.println("Introduzca un numero entero");
 			keyboard = new Scanner(System.in);
 		}
 
@@ -141,7 +141,7 @@ public class Utilities {
 		int opcion = 0;
 		P("1) Listar todos");
 		P("2) Listar por ID");
-		P("3) Volver al menú anterior");
+		P("3) Volver al menu anterior");
 		p("> ");
 
 		try {
@@ -159,13 +159,13 @@ public class Utilities {
 		P("1) Listar todos");
 		P("2) Listar por ID");
 		P("3) Listar las canciones por ID de disco");
-		P("4) Volver al menú anterior");
+		P("4) Volver al menu anterior");
 		p("> ");
 
 		try {
 			opcion = keyboard.nextInt();
 		} catch (Exception e) {
-			System.out.println("Introduzca un número entero");
+			System.out.println("Introduzca un numero entero");
 			keyboard = new Scanner(System.in);
 		}
 
@@ -177,13 +177,13 @@ public class Utilities {
 		P("1) Listar todos");
 		P("2) Listar por ID");
 		P("3) Listar discos por ID de Artista");
-		P("4) Volver al menú anterior");
+		P("4) Volver al menu anterior");
 		p("> ");
 
 		try {
 			opcion = keyboard.nextInt();
 		} catch (Exception e) {
-			System.out.println("Introduzca un número entero");
+			System.out.println("Introduzca un numero entero");
 			keyboard = new Scanner(System.in);
 		}
 
@@ -193,14 +193,14 @@ public class Utilities {
 	// ____________________________________________________________________________MenuInsertar
 	public static int MenuInsertar() {
 		int opcion = 0;
-		P("-----Menú de Creación-----");
+		P("-----Menu de Creacion-----");
 		P("1) Insertar Artista");
 		P("2) Insertar Disco");
-		P("3) Insertar Canción");
-		P("4) Crear una lista de reproducción");
-		P("5) Insertar una canción a una lista");
+		P("3) Insertar Cancion");
+		P("4) Crear una lista de reproduccion");
+		P("5) Insertar una cancion a una lista");
 		P("6) Insertar un usuario");
-		P("7) Subscribirte una lista de reproducción");
+		P("7) Subscribirte una lista de reproduccion");
 		P("8) Salir");
 		P("-------------------------------------");
 		p("> ");
@@ -208,7 +208,7 @@ public class Utilities {
 		try {
 			opcion = keyboard.nextInt();
 		} catch (Exception e) {
-			System.out.println("Introduzca un número entero");
+			System.out.println("Introduzca un numero entero");
 			keyboard = new Scanner(System.in);
 		}
 
@@ -218,11 +218,11 @@ public class Utilities {
 	// ____________________________________________________________________________MenuEditar
 	public static int MenuEditar() {
 		int opcion = 0;
-		P("-----Menú de Edición-----");
+		P("-----Menu de Edicion-----");
 		P("1) Editar un Artista");
 		P("2) Editar un Disco");
-		P("3) Editar un Canción");
-		P("4) Editar una lista de reproducción");
+		P("3) Editar un Cancion");
+		P("4) Editar una lista de reproduccion");
 		P("5) Editar un Usuario");
 		P("6) Salir");
 		P("-------------------------------------");
@@ -231,7 +231,7 @@ public class Utilities {
 		try {
 			opcion = keyboard.nextInt();
 		} catch (Exception e) {
-			System.out.println("Introduzca un número entero");
+			System.out.println("Introduzca un numero entero");
 			keyboard = new Scanner(System.in);
 		}
 
@@ -251,7 +251,7 @@ public class Utilities {
 		try {
 			opcion = keyboard.nextInt();
 		} catch (Exception e) {
-			System.out.println("Introduzca un número entero");
+			System.out.println("Introduzca un numero entero");
 			keyboard = new Scanner(System.in);
 		}
 
@@ -272,7 +272,7 @@ public class Utilities {
 		try {
 			opcion = keyboard.nextInt();
 		} catch (Exception e) {
-			System.out.println("Introduzca un número entero");
+			System.out.println("Introduzca un numero entero");
 			keyboard = new Scanner(System.in);
 		}
 
@@ -292,7 +292,7 @@ public class Utilities {
 		try {
 			opcion = keyboard.nextInt();
 		} catch (Exception e) {
-			System.out.println("Introduzca un número entero");
+			System.out.println("Introduzca un numero entero");
 			keyboard = new Scanner(System.in);
 		}
 
@@ -311,7 +311,7 @@ public class Utilities {
 		try {
 			opcion = keyboard.nextInt();
 		} catch (Exception e) {
-			System.out.println("Introduzca un número entero");
+			System.out.println("Introduzca un numero entero");
 			keyboard = new Scanner(System.in);
 		}
 
@@ -331,7 +331,7 @@ public class Utilities {
 		try {
 			opcion = keyboard.nextInt();
 		} catch (Exception e) {
-			System.out.println("Introduzca un número entero");
+			System.out.println("Introduzca un numero entero");
 			keyboard = new Scanner(System.in);
 		}
 
@@ -341,13 +341,13 @@ public class Utilities {
 
 	public static int MenuEliminar() {
 		int opcion = 0;
-		P("-----Menú de Eliminación-----");
+		P("-----Menu de Eliminacion-----");
 		P("1) Eliminar Artista");
 		P("2) Eliminar Disco");
-		P("3) Eliminar Canción");
-		P("4) Eliminar una lista de reproducción");
-		P("5) Eliminar una canción de una lista");
-		P("6) Eliminar una suscripción a una lista");
+		P("3) Eliminar Cancion");
+		P("4) Eliminar una lista de reproduccion");
+		P("5) Eliminar una cancion de una lista");
+		P("6) Eliminar una suscripcion a una lista");
 		P("7) Eliminar un Usuario");
 		P("8) Salir");
 		P("-------------------------------------");
@@ -356,7 +356,7 @@ public class Utilities {
 		try {
 			opcion = keyboard.nextInt();
 		} catch (Exception e) {
-			System.out.println("Introduzca un número entero");
+			System.out.println("Introduzca un nomero entero");
 			keyboard = new Scanner(System.in);
 		}
 
