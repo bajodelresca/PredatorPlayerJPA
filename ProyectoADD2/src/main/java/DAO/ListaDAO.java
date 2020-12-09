@@ -44,8 +44,6 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 	private final static String removeSubfromList = "DELETE FROM listasubscripcion WHERE FK_LISTA=? and FK_USUARIO=?";
 	private final static String findUserByIDList = "SELECT u.* FROM Usuario as u INNER JOIN listasubscripcion as s on FK_USUARIO=u.ID WHERE FK_LISTA= ?";
 
-	
-
 	public ListaDAO(int id) {
 		super(getByID(id));
 	}
@@ -84,6 +82,9 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 		}
 	}
 
+	/**
+	 * Inserta una lista
+	 */
 	@Override
 	public void insert(Lista a) {
 		EntityManager manager = ConnectionUtils.getManager();
@@ -94,6 +95,9 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 
 	}
 
+	/**
+	 * Edita una lista
+	 */
 	@Override
 	public void edit(Lista a) {
 		EntityManager manager = ConnectionUtils.getManager();
@@ -103,6 +107,9 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 		ConnectionUtils.closeManager(manager);
 	}
 
+	/**
+	 * Elimina una lista
+	 */
 	@Override
 	public void remove(Lista a) {
 		EntityManager manager = ConnectionUtils.getManager();
@@ -114,6 +121,9 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 		ConnectionUtils.closeManager(manager);
 	}
 
+	/**
+	 * Devuleve todas las listas
+	 */
 	@Override
 	public List<Lista> getAll() {
 		EntityManager manager = ConnectionUtils.getManager();
@@ -144,6 +154,12 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 		return l;
 	}
 
+	/**
+	 * Devolvemos las canciones de una lista de Repro.
+	 * 
+	 * @param Recibimos el id de la lista
+	 * @return canciones
+	 */
 	public List<Cancion> getCancionFromList(int id) {
 		EntityManager manager = ConnectionUtils.getManager();
 		manager.getTransaction().begin();
@@ -157,6 +173,13 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 
 	}
 
+	/**
+	 * Insertamos una cancion en una lista de Repro.
+	 * 
+	 * @param Recibimos el id de la lista a
+	 * @param Recibimos el id de la cancion c
+	 * @return result
+	 */
 	public boolean insertListCanc(int a, int c) {
 
 		boolean result = false;
@@ -260,7 +283,7 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 
 	/**
 	 * Recibe el ID del usuario y devuelve Las listas que ha creado
-	 *
+	 * 
 	 * @param id
 	 * @return listUser
 	 */
@@ -337,6 +360,13 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 
 		return result;
 	}
+
+	/**
+	 * Devolvemos los usuarios subscritos a una lista
+	 * 
+	 * @param recibe el id de la lista
+	 * @return usuarios
+	 */
 	public List<Usuario> getUserFromList(int id) {
 		EntityManager manager = ConnectionUtils.getManager();
 		manager.getTransaction().begin();
@@ -349,17 +379,24 @@ public class ListaDAO extends Lista implements DAO<Lista> {
 		return usuarios;
 
 	}
+
+	/**
+	 * Devolvemos las listas a la que está subscrito un usuario
+	 * 
+	 * @param recibe el id
+	 * @return listas
+	 */
 	public List<Lista> getLitasFromSub(int id) {
-        EntityManager manager = ConnectionUtils.getManager();
-        manager.getTransaction().begin();
+		EntityManager manager = ConnectionUtils.getManager();
+		manager.getTransaction().begin();
 
-        Query q = manager.createNativeQuery(findListsByIDUser, Lista.class);
-        q.setParameter(1, id);
-        
-        List<Lista> listas = q.getResultList();
-        manager.getTransaction().commit();
-        ConnectionUtils.closeManager(manager);
-        return listas;
+		Query q = manager.createNativeQuery(findListsByIDUser, Lista.class);
+		q.setParameter(1, id);
 
-    }
+		List<Lista> listas = q.getResultList();
+		manager.getTransaction().commit();
+		ConnectionUtils.closeManager(manager);
+		return listas;
+
+	}
 }
